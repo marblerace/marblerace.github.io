@@ -55,34 +55,6 @@
       const fullscreenButton = document.querySelector("#unity-fullscreen-button");
       const warningBanner = document.querySelector("#unity-warning");
 
-      /*
-      const config = {
-        arguments: [],
-        dataUrl: buildUrl + "/race.data",
-        frameworkUrl: buildUrl + "/race.framework.js",
-        codeUrl: buildUrl + "/race.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "bluzaq",
-        productName: "Marble Race",
-        productVersion: "1",
-        showBanner: unityShowBanner,
-        matchWebGLToCanvasSize: true,
-        devicePixelRatio: 1
-      };
-      */
-
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        const meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-        unityContainer.className = "unity-mobile";
-        canvas.className = "unity-mobile";
-      } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
-      }
-
       /* Unity Configuration */
       const buildUrl = "Build";
       const loaderUrl = buildUrl + "/race.loader.js";
@@ -120,6 +92,19 @@
         matchWebGLToCanvasSize: true,
         devicePixelRatio: 1
       };
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        const meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        unityContainer.className = "unity-mobile";
+        canvas.className = "unity-mobile";
+        
+      } else {
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
 
       /* Unity Loader */
       const loaderScript = document.createElement("script");
