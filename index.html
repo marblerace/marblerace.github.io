@@ -6,6 +6,16 @@
     <title>Unity Web Player | Marble Race Ultimate</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+      html,body{height:100%;margin:0;overflow:hidden;background:#000;}
+      #unity-container, #unity-canvas{
+        width:100%!important;
+        height:100%!important;
+        max-width:100%;
+        max-height:100%;
+        display:block;
+      }
+    </style>    
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -46,8 +56,8 @@
         unityContainer.className = "unity-mobile";
         canvas.className = "unity-mobile";
       } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        //canvas.style.width = "960px";
+        //canvas.style.height = "600px";
       }
 
       /* Unity Configuration */
@@ -85,6 +95,7 @@
         productVersion: "1",
         showBanner: unityShowBanner,
       };
+      config.matchWebGLToCanvasSize = true;   // (default in newer Unity, explicit here)
 
       /* Unity Loader */
       const loaderScript = document.createElement("script");
