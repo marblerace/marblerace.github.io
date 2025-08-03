@@ -15,12 +15,19 @@
         max-height:100%;
         display:block;
       }
+      #tap-capture{
+        position:absolute;
+        inset:0;                    /* top:0 left:0 right:0 bottom:0 */
+        z-index:9999;               /* above canvas */
+        background:transparent;
+        touch-action:none;          /* don’t scroll the page */
+      }
     </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <!-- <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas> -->
-      <canvas id="unity-canvas" width="1242" height="2688" tabindex="-1"></canvas>
+      <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
+      <!-- <canvas id="unity-canvas" width="1242" height="2688" tabindex="-1"></canvas> -->
       <!-- <canvas id="unity-canvas" tabindex="-1"></canvas> -->
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
@@ -34,6 +41,7 @@
         <div id="unity-fullscreen-button"></div>
         <div id="unity-build-title">Marble Race</div>
       </div>
+      <div id="tap-capture"></div>
     </div>
 
     <script type="module">
@@ -96,29 +104,38 @@
         companyName: "bluzaq",
         productName: "Marble Race",
         productVersion: "1",
-        //matchWebGLToCanvasSize: true,
+        matchWebGLToCanvasSize: true,
         showBanner: unityShowBanner
       };
 
       /* Unity Loader */
-      const loaderScript = document.createElement("script");
-      loaderScript.src = loaderUrl;
+      let unityInstance = null;     // keep a ref for the handler
+
       loaderScript.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = `${100 * progress}%`;
+        createUnityInstance(canvas, config, p => {
+          progressBarFull.style.width = 100 * p + '%';
         })
-          .then((unityInstance) => {
-            loadingBar.style.display = "none";
-            fullscreenButton.onclick = () => unityInstance.SetFullscreen(1);
-            console.log("Unity instance loaded, signaling Farcaster");
-            return sdk.actions.ready();
-          })
-          .then(() => console.log("✅ Farcaster sdk.actions.ready() called"))
-          .catch((err) => {
-            console.error("Initialization error:", err);
-            unityShowBanner("Failed to initialize: " + err, "error");
-          });
+        .then(inst => {
+          unityInstance = inst;                 // save reference
+          loadingBar.style.display = 'none';
+          fullscreenButton.onclick = () => inst.SetFullscreen(1);
+          /* enable Farcaster */
+          return sdk.actions.ready();
+        })
+        .then(() => {
+          /* attach one-shot listener */
+          const tapDiv = document.getElementById('tap-capture');
+          tapDiv.addEventListener('pointerdown', () => {
+            if (unityInstance) unityInstance.SetFullscreen(1);
+            tapDiv.remove();                    // let all future taps hit Unity
+          }, { once:true });
+        })
+        .catch(err => {
+          console.error('Init error', err);
+          unityShowBanner('Failed to initialize: '+err, 'error');
+        });
       };
+
       loaderScript.onerror = () => console.error("Failed to load Unity loader script");
       document.body.appendChild(loaderScript);
 
