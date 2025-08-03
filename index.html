@@ -113,7 +113,11 @@
             console.log("Unity instance loaded, signaling Farcaster");
             return sdk.actions.ready();
           })
-          .then(() => console.log("✅ Farcaster sdk.actions.ready() called"))
+          .then(() => {
+            console.log("Farcaster sdk.actions.ready() called");
+            const tapDiv = document.getElementById("tap-capture");
+          })
+
           .catch((err) => {
             console.error("Initialization error:", err);
             unityShowBanner("Failed to initialize: " + err, "error");
