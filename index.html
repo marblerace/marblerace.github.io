@@ -3,29 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity Web Player | Marble Race</title>
+    <title>Unity Web Player | Marble Race Ultimate</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        overflow: hidden;
-        background: #000;
-      }
-      #unity-container, #unity-canvas {
-        width: 100% !important;
-        height: 100% !important;
-        max-width: 100%;
-        max-height: 100%;
-        display: block;
-        touch-action: none;          /* prevent browser gestures */
-        pointer-events: none;
-        overscroll-behavior: none;   /* disable rubber-band / pull-to-refresh */
-        -webkit-touch-callout: none; /* optional: stop long-press menu */
-        /* -webkit-user-select: none;   optional: no text selection flash */
-      }
-    </style>
+      html,body{height:100%;margin:0;overflow:hidden;background:#000;}
+
+      #unity-container, #unity-canvas{
+      width:100%!important;
+      height:100%!important;
+      max-width:100%;
+      max-height:100%;
+      display:block;
+
+      touch-action:auto;          /* 👈  prevent browser gestures */
+      pointer-events:auto;
+      overscroll-behavior:none;   /* 👈  disable rubber-band / pull-to-refresh */
+      -webkit-touch-callout:none; /* optional: stop long-press menu */
+      -webkit-user-select:none;   /* optional: no text selection flash */
+      user-select:none;           /* standard property for compatibility */
+    }
+    </style>    
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -40,7 +38,7 @@
       <div id="unity-footer">
         <div id="unity-logo-title-footer"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Marble Race</div>
+        <div id="unity-build-title">Marble Race Ultimate</div>
       </div>
     </div>
 
@@ -65,6 +63,7 @@
         document.getElementsByTagName('head')[0].appendChild(meta);
         unityContainer.className = "unity-mobile";
         canvas.className = "unity-mobile";
+        config.devicePixelRatio = 1;
       } else {
         //canvas.style.width = "960px";
         //canvas.style.height = "600px";
@@ -93,7 +92,7 @@
         }
         updateBannerVisibility();
       }
-      
+
       const config = {
         arguments: [],
         dataUrl: buildUrl + "/race.data",
@@ -103,9 +102,8 @@
         companyName: "bluzaq",
         productName: "Marble Race",
         productVersion: "1",
-        //showBanner: unityShowBanner,
-        matchWebGLToCanvasSize: true,
-        devicePixelRatio: 1
+        showBanner: unityShowBanner,
+        matchWebGLToCanvasSize: true
       };
 
       /* Unity Loader */
@@ -124,42 +122,11 @@
           .then(() => console.log("✅ Farcaster sdk.actions.ready() called"))
           .catch((err) => {
             console.error("Initialization error:", err);
-            //unityShowBanner("Failed to initialize: " + err, "error");
+            unityShowBanner("Failed to initialize: " + err, "error");
           });
       };
       loaderScript.onerror = () => console.error("Failed to load Unity loader script");
       document.body.appendChild(loaderScript);
-
-      /* Payment Function for Unity */
-      /*
-      window.ChargeForRace = async (tokenId, amount, recipient) => {
-        console.log("ChargeForRace called with:", { tokenId, amount, recipient });
-        try {
-          console.log("Authenticating...");
-          await sdk.quickAuth.getToken();
-          console.log("Authentication successful");
-          console.log("Sending token...");
-          const res = await sdk.actions.sendToken({
-            token: tokenId,
-            amount,
-            recipientAddress: recipient
-          });
-          console.log("Payment success:", res);
-          if (typeof SendMessage === 'function') {
-            SendMessage('FarcasterBridge', 'OnChargeComplete', JSON.stringify({ success: true, result: res }));
-          } else {
-            console.error("SendMessage not available");
-          }
-        } catch (e) {
-          console.error("Payment error:", e);
-          if (typeof SendMessage === 'function') {
-            SendMessage('FarcasterBridge', 'OnChargeComplete', JSON.stringify({ success: false, error: e.message }));
-          } else {
-            console.error("SendMessage not available");
-          }
-        }
-      };
-      */
     </script>
   </body>
 </html>
