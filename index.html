@@ -26,7 +26,8 @@
       touch-action:none;          /* 👈  prevent browser gestures */
       overscroll-behavior:none;   /* 👈  disable rubber-band / pull-to-refresh */
       -webkit-touch-callout:none; /* optional: stop long-press menu */
-      /*-webkit-user-select:none;   /* optional: no text selection flash */
+      -webkit-user-select:none;   /* optional: no text selection flash */
+      user-select:none;           /* standard property for compatibility */
     }
     </style>    
   </head>
@@ -107,7 +108,7 @@
         companyName: "bluzaq",
         productName: "Marble Race",
         productVersion: "1",
-        //showBanner: unityShowBanner,
+        showBanner: unityShowBanner,
         matchWebGLToCanvasSize: true
       };
 
@@ -127,7 +128,7 @@
           .then(() => console.log("✅ Farcaster sdk.actions.ready() called"))
           .catch((err) => {
             console.error("Initialization error:", err);
-            //unityShowBanner("Failed to initialize: " + err, "error");
+            unityShowBanner("Failed to initialize: " + err, "error");
           });
       };
       loaderScript.onerror = () => console.error("Failed to load Unity loader script");

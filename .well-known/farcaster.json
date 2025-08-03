@@ -6,7 +6,7 @@
     "homeUrl": "https://marblerace.github.io",
     "imageUrl": "https://marblerace.github.io/logo.png",
     "splashImageUrl": "https://marblerace.github.io/logo.png",
-    "splashBackgroundColor": "#252850",
+    "splashBackgroundColor": "#242E45",
     "webhookUrl": "https://marblerace.github.io/api/webhook",
     "subtitle": "Marble Race with crypto tokens",
     "description": "Race in a simulation with marbles which represent tokens",
