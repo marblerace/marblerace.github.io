@@ -17,7 +17,6 @@
       display:block;
 
       touch-action:auto;          /* 👈  prevent browser gestures */
-      pointer-events:auto;
       overscroll-behavior:none;   /* 👈  disable rubber-band / pull-to-refresh */
       -webkit-touch-callout:none; /* optional: stop long-press menu */
       -webkit-user-select:none;   /* optional: no text selection flash */
@@ -63,7 +62,6 @@
         document.getElementsByTagName('head')[0].appendChild(meta);
         unityContainer.className = "unity-mobile";
         canvas.className = "unity-mobile";
-        config.devicePixelRatio = 1;
       } else {
         //canvas.style.width = "960px";
         //canvas.style.height = "600px";
@@ -103,7 +101,8 @@
         productName: "Marble Race",
         productVersion: "1",
         showBanner: unityShowBanner,
-        matchWebGLToCanvasSize: true
+        matchWebGLToCanvasSize: true,
+        devicePixelRatio: 1
       };
 
       /* Unity Loader */
