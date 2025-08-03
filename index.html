@@ -9,7 +9,8 @@
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
+      <!-- <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas> -->
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -84,6 +85,7 @@
         productName: "Marble Race",
         productVersion: "1",
         showBanner: unityShowBanner,
+        matchWebGLToCanvasSize: true
       };
 
       /* Unity Loader */
