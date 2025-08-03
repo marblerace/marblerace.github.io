@@ -31,7 +31,7 @@
       <div id="unity-footer">
         <div id="unity-logo-title-footer"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Marble Race Ultimate</div>
+        <div id="unity-build-title">Marble Race</div>
       </div>
     </div>
 
@@ -100,6 +100,7 @@
       };
 
       /* Unity Loader */
+      const isMobile = (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
       const loaderScript = document.createElement("script");
       loaderScript.src = loaderUrl;
       loaderScript.onload = () => {
@@ -109,6 +110,7 @@
           .then((unityInstance) => {
             loadingBar.style.display = "none";
             fullscreenButton.onclick = () => unityInstance.SetFullscreen(1);
+            if (isMobile) unityInstance.SetFullscreen(1);
             console.log("Unity instance loaded, signaling Farcaster");
             return sdk.actions.ready();
           })
