@@ -1,0 +1,26 @@
+{
+    "frame": {
+      "name": "Marble Race",
+      "version": "1",
+      "iconUrl": "https://marblerace.github.io/icon.png",
+      "homeUrl": "https://marblerace.github.io",
+      "imageUrl": "https://raw.githubusercontent.com/marblerace/marblerace.github.io/refs/heads/main/logo.png",
+      "splashImageUrl": "https://raw.githubusercontent.com/marblerace/marblerace.github.io/refs/heads/main/Build/race.jpg",
+      "splashBackgroundColor": "#252850",
+      "webhookUrl": "https://marblerace.github.io/api/webhook",
+      "subtitle": "Marble Race with crypto tokens",
+      "description": "Race in a simulation with marbles which represent tokens",
+      "primaryCategory": "games",
+      "tags": [
+        "game",
+        "games",
+        "marblerace",
+        "race"
+      ]
+    },
+    "accountAssociation": {
+      "header": "eyJmaWQiOjI5OTk1OCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweEUwQTk5NTRjMzIzRWZlYzIxRjQwMDI4ODc1NWQxM0Y4N0U5MjExMjAifQ",
+      "payload": "eyJkb21haW4iOiJtYXJibGVyYWNlLmdpdGh1Yi5pbyJ9",
+      "signature": "P0NYOQmJjHAT61gYKbywVf+DCihNfpAUYfZchXHEGLkrnFrHzDhVGV5LNqUpMFaItUxfQOSittQvGSUFtndhhRw="
+    }
+  }
