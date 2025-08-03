@@ -109,8 +109,9 @@
         })
           .then((unityInstance) => {
             loadingBar.style.display = "none";
-            fullscreenButton.onclick = () => unityInstance.SetFullscreen(1);
-            if (isMobile) unityInstance.SetFullscreen(1);
+            //fullscreenButton.onclick = () => unityInstance.SetFullscreen(1);
+            //if (isMobile) unityInstance.SetFullscreen(1);
+            unityInstance.SetFullscreen(1);
             console.log("Unity instance loaded, signaling Farcaster");
             return sdk.actions.ready();
           })
