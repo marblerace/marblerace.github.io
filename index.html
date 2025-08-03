@@ -68,7 +68,7 @@
         matchWebGLToCanvasSize: true,
         devicePixelRatio: 1
       };
-      
+
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         const meta = document.createElement('meta');
         meta.name = 'viewport';
@@ -77,8 +77,8 @@
         unityContainer.className = "unity-mobile";
         canvas.className = "unity-mobile";
       } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        //canvas.style.width = "960px";
+        //canvas.style.height = "600px";
       }
 
       /* Unity Configuration */
