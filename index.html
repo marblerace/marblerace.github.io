@@ -14,7 +14,7 @@
         background:transparent;
         touch-action:none;          /* don’t scroll the page */
       }
-    </style>
+    </style>      
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -48,31 +48,17 @@
       const progressBarFull = document.querySelector("#unity-progress-bar-full");
       const fullscreenButton = document.querySelector("#unity-fullscreen-button");
       const warningBanner = document.querySelector("#unity-warning");
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-      /* ---------- Unity config ---------- */
-      const config = {
-        arguments: [],
-        dataUrl: buildUrl + "/race.data",
-        frameworkUrl: buildUrl + "/race.framework.js",
-        codeUrl: buildUrl + "/race.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "bluzaq",
-        productName: "Marble Race",
-        productVersion: "1",
-        matchWebGLToCanvasSize: true,
-        showBanner: unityShowBanner
-      };
-
-      /* mobile-specific settings AFTER config exists */
-      if (isMobile) {
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         const meta = document.createElement('meta');
-        meta.name   = 'viewport';
-        meta.content= 'width=device-width,height=device-height,initial-scale=1,shrink-to-fit=no,user-scalable=no';
-        document.head.appendChild(meta);
-
-        config.devicePixelRatio = 1;      // keep input in CSS pixels
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        unityContainer.className = "unity-mobile";
         canvas.className = "unity-mobile";
+      } else {
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
       }
 
       /* Unity Configuration */
@@ -99,11 +85,22 @@
         updateBannerVisibility();
       }
 
+      const config = {
+        arguments: [],
+        dataUrl: buildUrl + "/race.data",
+        frameworkUrl: buildUrl + "/race.framework.js",
+        codeUrl: buildUrl + "/race.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "bluzaq",
+        productName: "Marble Race",
+        productVersion: "1",
+        showBanner: unityShowBanner,
+        matchWebGLToCanvasSize: true
+      };
+
       /* Unity Loader */
       const loaderScript = document.createElement("script");
       loaderScript.src = loaderUrl;
-      //let unityInstance = null;
-
       loaderScript.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = `${100 * progress}%`;
@@ -114,7 +111,7 @@
             console.log("Unity instance loaded, signaling Farcaster");
             return sdk.actions.ready();
           })
-          .then(() => console.log("Farcaster sdk.actions.ready() called"))
+          .then(() => console.log("✅ Farcaster sdk.actions.ready() called"))
           .catch((err) => {
             console.error("Initialization error:", err);
             unityShowBanner("Failed to initialize: " + err, "error");
