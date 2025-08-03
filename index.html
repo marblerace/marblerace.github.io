@@ -102,7 +102,7 @@
       /* Unity Loader */
       const loaderScript = document.createElement("script");
       loaderScript.src = loaderUrl;
-      let unityInstance = null;
+      //let unityInstance = null;
 
       loaderScript.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
@@ -114,14 +114,7 @@
             console.log("Unity instance loaded, signaling Farcaster");
             return sdk.actions.ready();
           })
-          .then(() => {
-            console.log("Farcaster sdk.actions.ready() called");
-            const tapDiv = document.getElementById("tap-capture");
-            tapDiv.addEventListener('pointerdown', () => {
-            if (unityInstance) unityInstance.SetFullscreen(1);    // now allowed
-            tapDiv.remove();
-          }, { once:true });
-          })
+          .then(() => console.log("Farcaster sdk.actions.ready() called"))
           .catch((err) => {
             console.error("Initialization error:", err);
             unityShowBanner("Failed to initialize: " + err, "error");
