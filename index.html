@@ -31,7 +31,7 @@
   <body>
     <div id="unity-container" class="unity-desktop">
       <!-- <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas> -->
-      <!-- <canvas id="unity-canvas" tabindex="-1"></canvas> -->
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -131,37 +131,6 @@
       };
       loaderScript.onerror = () => console.error("Failed to load Unity loader script");
       document.body.appendChild(loaderScript);
-
-      /* Payment Function for Unity */
-      /*
-      window.ChargeForRace = async (tokenId, amount, recipient) => {
-        console.log("ChargeForRace called with:", { tokenId, amount, recipient });
-        try {
-          console.log("Authenticating...");
-          await sdk.quickAuth.getToken();
-          console.log("Authentication successful");
-          console.log("Sending token...");
-          const res = await sdk.actions.sendToken({
-            token: tokenId,
-            amount,
-            recipientAddress: recipient
-          });
-          console.log("Payment success:", res);
-          if (typeof SendMessage === 'function') {
-            SendMessage('FarcasterBridge', 'OnChargeComplete', JSON.stringify({ success: true, result: res }));
-          } else {
-            console.error("SendMessage not available");
-          }
-        } catch (e) {
-          console.error("Payment error:", e);
-          if (typeof SendMessage === 'function') {
-            SendMessage('FarcasterBridge', 'OnChargeComplete', JSON.stringify({ success: false, error: e.message }));
-          } else {
-            console.error("SendMessage not available");
-          }
-        }
-      };
-      */
     </script>
   </body>
 </html>
