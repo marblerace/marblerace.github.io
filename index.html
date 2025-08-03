@@ -57,6 +57,20 @@
       const fullscreenButton = document.querySelector("#unity-fullscreen-button");
       const warningBanner = document.querySelector("#unity-warning");
 
+      const config = {
+        arguments: [],
+        dataUrl: buildUrl + "/race.data",
+        frameworkUrl: buildUrl + "/race.framework.js",
+        codeUrl: buildUrl + "/race.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "bluzaq",
+        productName: "Marble Race",
+        productVersion: "1",
+        //showBanner: unityShowBanner,
+        devicePixelRatio: 1,
+        matchWebGLToCanvasSize: true
+      };
+
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         const meta = document.createElement('meta');
         meta.name = 'viewport';
@@ -64,42 +78,9 @@
         document.getElementsByTagName('head')[0].appendChild(meta);
         unityContainer.className = "unity-mobile";
         canvas.className = "unity-mobile";
-        config.devicePixelRatio = 1;
-        
-        // Prevent touch events from being captured by the browser
-        canvas.addEventListener('touchstart', (e) => {
-          e.preventDefault();
-        }, { passive: false });
-        
-        canvas.addEventListener('touchmove', (e) => {
-          e.preventDefault();
-        }, { passive: false });
-        
-        canvas.addEventListener('touchend', (e) => {
-          e.preventDefault();
-        }, { passive: false });
-        
-        // Prevent any other touch events from interfering
-        document.addEventListener('touchstart', (e) => {
-          if (e.target === canvas || canvas.contains(e.target)) {
-            e.preventDefault();
-          }
-        }, { passive: false });
-        
-        document.addEventListener('touchmove', (e) => {
-          if (e.target === canvas || canvas.contains(e.target)) {
-            e.preventDefault();
-          }
-        }, { passive: false });
-        
-        document.addEventListener('touchend', (e) => {
-          if (e.target === canvas || canvas.contains(e.target)) {
-            e.preventDefault();
-          }
-        }, { passive: false });
       } else {
-        //canvas.style.width = "960px";
-        //canvas.style.height = "600px";
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
       }
 
       /* Unity Configuration */
@@ -126,6 +107,7 @@
         updateBannerVisibility();
       }
 
+      /*
       const config = {
         arguments: [],
         dataUrl: buildUrl + "/race.data",
@@ -138,6 +120,7 @@
         //showBanner: unityShowBanner,
         matchWebGLToCanvasSize: true
       };
+      */
 
       /* Unity Loader */
       const loaderScript = document.createElement("script");
