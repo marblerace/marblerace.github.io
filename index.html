@@ -32,6 +32,7 @@
         <div id="unity-fullscreen-button"></div>
         <div id="unity-build-title">Marble Race Ultimate</div>
       </div>
+      <div id="tap-capture"></div>
     </div>
 
     <script type="module">
@@ -116,8 +117,11 @@
           .then(() => {
             console.log("Farcaster sdk.actions.ready() called");
             const tapDiv = document.getElementById("tap-capture");
+            tapDiv.addEventListener('pointerdown', () => {
+            if (unityInstance) unityInstance.SetFullscreen(1);    // now allowed
+            tapDiv.remove();
+          }, { once:true });
           })
-
           .catch((err) => {
             console.error("Initialization error:", err);
             unityShowBanner("Failed to initialize: " + err, "error");
