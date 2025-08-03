@@ -6,6 +6,15 @@
     <title>Unity Web Player | Marble Race</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+      #tap-capture{
+        position:absolute;
+        inset:0;                    /* top:0 left:0 right:0 bottom:0 */
+        z-index:9999;               /* above canvas */
+        background:transparent;
+        touch-action:none;          /* don’t scroll the page */
+      }
+    </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -21,8 +30,9 @@
       <div id="unity-footer">
         <div id="unity-logo-title-footer"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Marble Race Ultimate</div>
+        <div id="unity-build-title">Marble Race</div>
       </div>
+      <div id="tap-capture"></div>
     </div>
 
     <script type="module">
