@@ -19,25 +19,21 @@
         display:block;
       }
 
-      /* start hidden & inert */
       #unity-fullscreen-button{
-        display:none;              /* or visibility:hidden; */
-        pointer-events:none;       /* extra safety          */
-      }
+        position:absolute;        /* take it out of the footer flow           */
+        left:50%;                 /* center horizontally                      */
+        bottom:12px;              /* 12 px above the bottom edge              */
+        transform:translateX(-50%);/* true centering                          */
 
-      /* bigger, centred version once we reveal it */
-      body.full #unity-fullscreen-button{
-        position:absolute; left:50%;
-        bottom:12px;
-        transform:translateX(-50%);
-        width:128px;
-        height:128px;
-        border-radius:8px;
-        background:#242E45;
+        width:320px;               /* increase size (was 38 × 38)           */
+        height:64px;
+        border-radius:8px;        /* optional: square with rounded corners    */
+        background:#242E45;       /* your colour                              */
         cursor:pointer;
-        display:flex;
+        display:flex;             /* center the SVG icon inside               */
         align-items:center;
         justify-content:center;
+        box-shadow:0 2px 6px rgba(0,0,0,.4);
       }
       </style>      
   </head>
@@ -56,7 +52,6 @@
         <div id="unity-logo-title-footer"></div>
         <div id="unity-fullscreen-button"></div>
         <!-- <div id="unity-build-title">Marble Race</div> -->
-        <div id="unity-build-title">Click to play</div>
       </div>
     </div>
 
@@ -132,14 +127,9 @@
         })
           .then((unityInstance) => {
             loadingBar.style.display = "none";
-            //const fullscreenButton = document.getElementById('unity-fullscreen-button');
-            //fullscreenButton.style.display = 'flex';          // was none
-            //fullscreenButton.style.pointerEvents = 'auto';    // re-enable clicks
 
             fullscreenButton.onclick = () => {
-              //unityInstance.SetFullscreen(1);
               document.body.classList.add('full');
-              fullscreenButton.style.display = 'none';
             };
 
             console.log("Unity instance loaded, signaling Farcaster");
