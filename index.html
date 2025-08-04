@@ -106,8 +106,6 @@
             updateBannerVisibility();
           }, 5000);
         }
-        //make clickable
-        fullscreenButton.classList.add('unity-fs-enabled');
         updateBannerVisibility();
       }
 
@@ -162,8 +160,10 @@
       };
       loaderScript.onerror = () => console.error("Failed to load Unity loader script");
       document.body.appendChild(loaderScript);
-      //make clickable
-      //fullscreenButton.classList.add('unity-fs-enabled');
+      // After 5 seconds, add the 'unity-fs-enabled' class to make the fullscreen button clickable
+      setTimeout(() => {
+        fullscreenButton.classList.add('unity-fs-enabled');
+      }, 5000);
     </script>
   </body>
 </html>
