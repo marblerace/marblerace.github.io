@@ -13,6 +13,7 @@
         z-index:9999;               /* above canvas */
         background:transparent;
         touch-action:none;          /* don’t scroll the page */
+        overscroll-behavior:none;
       }
     </style>
   </head>
@@ -50,6 +51,7 @@
       const warningBanner = document.querySelector("#unity-warning");
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        isMobile = true;
         const meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
@@ -99,7 +101,6 @@
       };
 
       /* Unity Loader */
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       const loaderScript = document.createElement("script");
       loaderScript.src = loaderUrl;
 
@@ -110,20 +111,24 @@
           .then((unityInstance) => {
             loadingBar.style.display = "none";
             fullscreenButton.onclick = () => unityInstance.SetFullscreen(1);
+            const tapDiv = document.getElementById("tap-capture");
 
             /* ----- NEW: one-shot overlay for mobile ----- */
             if (isMobile) {
-              const tapDiv = document.getElementById("tap-capture");
               tapDiv.addEventListener('pointerdown', () => {
                 unityInstance.SetFullscreen(1);
                 tapDiv.remove();
               }, { once: true });
             }
+            else
+            {
+              tapDiv.remove();
+            }
 
             console.log("Unity instance loaded, signaling Farcaster");
             return sdk.actions.ready();
           })
-          .then(() => console.log("✅ Farcaster sdk.actions.ready() called"))
+          .then(() => console.log("Farcaster sdk.actions.ready() called"))
           .catch((err) => {
             console.error("Initialization error:", err);
             unityShowBanner("Failed to initialize: " + err, "error");
