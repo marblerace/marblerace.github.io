@@ -6,6 +6,19 @@
     <title>Unity Web Player | Marble Race</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+      html,body{height:100%;margin:0;overflow:hidden;background:#000;}
+      
+      /* the rules are only active when <body> has class="full" */
+      body.full #unity-container,
+      body.full #unity-canvas{
+        width:100%!important;
+        height:100%!important;
+        max-width:100%;
+        max-height:100%;
+        display:block;
+      }
+      </style>      
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -21,7 +34,7 @@
       <div id="unity-footer">
         <div id="unity-logo-title-footer"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Marble Race Ultimate</div>
+        <div id="unity-build-title">Marble Race</div>
       </div>
     </div>
 
@@ -38,18 +51,6 @@
       const progressBarFull = document.querySelector("#unity-progress-bar-full");
       const fullscreenButton = document.querySelector("#unity-fullscreen-button");
       const warningBanner = document.querySelector("#unity-warning");
-
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        const meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-        unityContainer.className = "unity-mobile";
-        canvas.className = "unity-mobile";
-      } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
-      }
 
       /* Unity Configuration */
       const buildUrl = "Build";
@@ -88,6 +89,18 @@
         matchWebGLToCanvasSize: true
       };
 
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        const meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        unityContainer.className = "unity-mobile";
+        canvas.className = "unity-mobile";
+      } else {
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
+
       /* Unity Loader */
       const loaderScript = document.createElement("script");
       loaderScript.src = loaderUrl;
@@ -98,10 +111,11 @@
           .then((unityInstance) => {
             loadingBar.style.display = "none";
             fullscreenButton.onclick = () => unityInstance.SetFullscreen(1);
+            document.body.classList.add('full');  // activate CSS
             console.log("Unity instance loaded, signaling Farcaster");
             return sdk.actions.ready();
           })
-          .then(() => console.log("✅ Farcaster sdk.actions.ready() called"))
+          .then(() => console.log("Farcaster sdk.actions.ready() called"))
           .catch((err) => {
             console.error("Initialization error:", err);
             unityShowBanner("Failed to initialize: " + err, "error");
