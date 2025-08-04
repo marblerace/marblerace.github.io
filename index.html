@@ -19,28 +19,26 @@
         display:block;
       }
 
+      /* start hidden & inert */
       #unity-fullscreen-button{
-        position:absolute;        /* take it out of the footer flow           */
-        left:50%;                 /* center horizontally                      */
-        bottom:12px;              /* 12 px above the bottom edge              */
-        transform:translateX(-50%);/* true centering                          */
-
-        width:64px;               /* increase size (was 38 × 38)           */
-        height:64px;
-        border-radius:8px;        /* optional: square with rounded corners    */
-        background:#0d6efd;       /* your colour                              */
-        cursor:pointer;
-        display:flex;             /* center the SVG icon inside               */
-        align-items:center;
-        justify-content:center;
-        box-shadow:0 2px 6px rgba(0,0,0,.4);
-        fill: #242E45;
+        display:none;              /* or visibility:hidden; */
+        pointer-events:none;       /* extra safety          */
       }
 
-      #unity-fullscreen-button svg{
-        width:28px;
-        height:28px;
-        fill:#fff;                /* icon colour */
+      /* bigger, centred version once we reveal it */
+      body.full #unity-fullscreen-button{
+        position:absolute; left:50%;
+        bottom:12px;
+        transform:translateX(-50%);
+        width:64px;
+        height:64px;
+        border-radius:8px;
+        background:#242E45;
+        color:#fff;
+        cursor:pointer;
+        display:flex;
+        align-items:center;
+        justify-content:center;
       }
       </style>      
   </head>
@@ -135,8 +133,12 @@
         })
           .then((unityInstance) => {
             loadingBar.style.display = "none";
+            const fullscreenButton = document.getElementById('unity-fullscreen-button');
+            fullscreenButton.style.display = 'flex';          // was none
+            fullscreenButton.style.pointerEvents = 'auto';    // re-enable clicks
 
             fullscreenButton.onclick = () => {
+              //unityInstance.SetFullscreen(1);
               document.body.classList.add('full');
             };
 
