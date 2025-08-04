@@ -140,8 +140,6 @@
       loaderScript.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = `${100 * progress}%`;
-          //make clickable
-          fullscreenButton.classList.add('unity-fs-enabled');
         })
           .then((unityInstance) => {
             loadingBar.style.display = "none";
@@ -162,6 +160,8 @@
       };
       loaderScript.onerror = () => console.error("Failed to load Unity loader script");
       document.body.appendChild(loaderScript);
+      //make clickable
+      fullscreenButton.classList.add('unity-fs-enabled');
     </script>
   </body>
 </html>
