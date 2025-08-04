@@ -6,16 +6,6 @@
     <title>Unity Web Player | Marble Race</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-    <style>
-      #tap-capture{
-        position:absolute;
-        inset:0;                    /* top:0 left:0 right:0 bottom:0 */
-        z-index:9999;               /* above canvas */
-        background:transparent;
-        touch-action:none;          /* don’t scroll the page */
-        overscroll-behavior:none;
-      }
-    </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -31,9 +21,8 @@
       <div id="unity-footer">
         <div id="unity-logo-title-footer"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Marble Race</div>
+        <div id="unity-build-title">Marble Race Ultimate</div>
       </div>
-      <!--<div id="tap-capture"></div>-->
     </div>
 
     <script type="module">
@@ -49,6 +38,23 @@
       const progressBarFull = document.querySelector("#unity-progress-bar-full");
       const fullscreenButton = document.querySelector("#unity-fullscreen-button");
       const warningBanner = document.querySelector("#unity-warning");
+
+      /*
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        const meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        unityContainer.className = "unity-mobile";
+        canvas.className = "unity-mobile";
+      } else {
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
+      */
+
+      canvas.style.width = "960px";
+      canvas.style.height = "600px";
 
       /* Unity Configuration */
       const buildUrl = "Build";
@@ -90,7 +96,6 @@
       /* Unity Loader */
       const loaderScript = document.createElement("script");
       loaderScript.src = loaderUrl;
-
       loaderScript.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = `${100 * progress}%`;
@@ -98,12 +103,10 @@
           .then((unityInstance) => {
             loadingBar.style.display = "none";
             fullscreenButton.onclick = () => unityInstance.SetFullscreen(1);
-            //const tapDiv = document.getElementById("tap-capture");
-
             console.log("Unity instance loaded, signaling Farcaster");
             return sdk.actions.ready();
           })
-          .then(() => console.log("Farcaster sdk.actions.ready() called"))
+          .then(() => console.log("✅ Farcaster sdk.actions.ready() called"))
           .catch((err) => {
             console.error("Initialization error:", err);
             unityShowBanner("Failed to initialize: " + err, "error");
