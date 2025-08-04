@@ -30,11 +30,10 @@
         position:absolute; left:50%;
         bottom:12px;
         transform:translateX(-50%);
-        width:64px;
-        height:64px;
+        width:128px;
+        height:128px;
         border-radius:8px;
         background:#242E45;
-        color:#fff;
         cursor:pointer;
         display:flex;
         align-items:center;
@@ -133,13 +132,14 @@
         })
           .then((unityInstance) => {
             loadingBar.style.display = "none";
-            const fullscreenButton = document.getElementById('unity-fullscreen-button');
-            fullscreenButton.style.display = 'flex';          // was none
-            fullscreenButton.style.pointerEvents = 'auto';    // re-enable clicks
+            //const fullscreenButton = document.getElementById('unity-fullscreen-button');
+            //fullscreenButton.style.display = 'flex';          // was none
+            //fullscreenButton.style.pointerEvents = 'auto';    // re-enable clicks
 
             fullscreenButton.onclick = () => {
               //unityInstance.SetFullscreen(1);
               document.body.classList.add('full');
+              fullscreenButton.style.display = 'none';
             };
 
             console.log("Unity instance loaded, signaling Farcaster");
